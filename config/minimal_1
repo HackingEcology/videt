@@ -1,0 +1,2 @@
+dwd_dataset	/climate_environment/CDC/observations_global/CLIMAT/monthly/qc/air_temperature_mean/historical/	01001_192201_201412.txt
+global_carbon_project_dataset	https://raw.githubusercontent.com/openclimatedata/global-carbon-budget/master/data/global-carbon-budget.csv
