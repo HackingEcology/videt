@@ -3,7 +3,19 @@
 a collaborative project of [Hacking Ecology](https://hackingecology.eu/), a collective for open data, open source and
 citizen science that helps us avert the sixth mass extinction.
 
-videt visualizes open datasets of processes that might have an influence on ecosystem functioning.
+videt visualizes open datasets of processes that might have an influence on ecosystem functioning. At its core, it uses
+[bokeh](https://docs.bokeh.org/en/latest/) and allows users to interactively choose datasets to show.
+
+### Usage
+
+As there is no online version of videt yet, users need to clone the repo, `cd` into the videt folder and then run
+
+```
+bokeh serve ./ --show
+```
+
+
+## To-Do's
 
 
 Geographic Time Series
