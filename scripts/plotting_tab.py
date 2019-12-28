@@ -93,9 +93,7 @@ def videt_tab(dataset_collection, infos_tab):
     p.xaxis.axis_label = "Time"
     p.yaxis.axis_label = "Value"
     dataset_choice_checkboxes = WidgetBox(carrier_selection)
-    #citation_button = Button(label="Get citation for chosen datasets", button_type="success")
-    #citation_button.on_click(get_citation_boxfunction)
-    layout = row(column(dataset_choice_checkboxes, citation_button), p)
+    layout = row(dataset_choice_checkboxes, p)
 
     # Create a tab with the layout
     tab = Panel(child=layout, title = 'Videt')
