@@ -45,7 +45,10 @@ def videt_tab(dataset_collection, infos_tab):
         #Initialize p_dict to store all necessary information for the legend
         p_dict = dict()
         #Initialize some strings to collect citation information of shown datasets
-        citation_header = "Citation for chosen datasets:\n\r"
+        citation_header = "<p>This is videt (VIsualizing Dataset of Ecological Trends), which aims at supporting you by \
+       visualizing a variety of eco-related datasets in one place. This was created by Hacking Ecology. We are a \
+       open-source and open-data citizen science data science collective and we want to find out how to avert the sixth \
+       mass extinction by looking at datasets that are out there.</p>\n\rCitation for chosen datasets:\n\r"
         citation_lines = ""
 
         for i, this_dataset in enumerate(dataset_collection.datasets):
@@ -64,17 +67,20 @@ def videt_tab(dataset_collection, infos_tab):
                     #    tooltips=[('datetime', '@index{%Y-%m-%d %H:%M:%S}'), (y_label, f'@{y_label}')],
                     #    formatters={'index': 'datetime'}
                     #))
-        ##TODO make the Legend work!
-        legend = Legend(items=[(x, [p_dict[x]]) for x in p_dict])
-        plot_object.add_layout(legend, 'right')
 
-        #pass on citation information to the information tab
+        # pass on citation information to the information tab
         if citation_lines != "":
             citation_lines = citation_header + citation_lines
         else:
-            citation_lines = "No datasets chosen."
+            citation_lines = ""
 
-        infos_tab.child.children[1] = Div(text = citation_lines)
+        #infos_tab.child.children[0] = Div(text=citation_lines)
+
+        ##TODO make the Legend work!
+        #legend = Legend(items=[(x, [p_dict[x]]) for x in p_dict])
+        #plot_object.add_layout(legend, 'right')
+
+
 
 
     ##Initialize empty plot
@@ -93,11 +99,11 @@ def videt_tab(dataset_collection, infos_tab):
     p.xaxis.axis_label = "Time"
     p.yaxis.axis_label = "Value"
     dataset_choice_checkboxes = WidgetBox(carrier_selection)
-    layout = row(dataset_choice_checkboxes, p)
+    ##TODO add the possibility to download the shown data on click
+    placeholder_button = Button(label="Placeholder", button_type="success")
+    layout = row(column(dataset_choice_checkboxes, placeholder_button), p)
 
     # Create a tab with the layout
     tab = Panel(child=layout, title = 'Videt')
-
-    ##TODO add a button to download the shown data
 
     return tab
