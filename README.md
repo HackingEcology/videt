@@ -1,7 +1,9 @@
 # videt -- Vizualising Datasets of Ecological Trend
 
+a collaborative project of [Hacking Ecology](https://hackingecology.eu/), a collective for open data, open source and
+citizen science that helps us avert the sixth mass extinction.
 
-## Short 
+videt visualizes open datasets of processes that might have an influence on ecosystem functioning.
 
 
 Geographic Time Series
