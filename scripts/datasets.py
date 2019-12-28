@@ -1,12 +1,10 @@
 from ftplib import FTP
 from io import StringIO
 from datetime import datetime
-import importlib
 from abc import ABCMeta, abstractmethod
 import numpy as np
 import pandas as pd
 from bokeh.models.sources import ColumnDataSource
-import xlrd
 
 class timeseries_dataset(metaclass=ABCMeta):
     #This is the abstract base class for time series datasets. They need a name, the info whether one is able to obtain
