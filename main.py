@@ -16,6 +16,3 @@ tab1 = videt_tab(videt, tab2)
 tabs = Tabs(tabs = [tab1, tab2])
 curdoc().add_root(tabs)
 curdoc().title = "videt  --  Hacking Ecology"
-
-
-##TODO: write Readme with "how to run", first TODOs and list of datasets to implement

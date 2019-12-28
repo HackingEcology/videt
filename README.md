@@ -14,9 +14,16 @@ As there is no online version of videt yet, users need to clone the repo, `cd` i
 bokeh serve ./ --show
 ```
 
+### Structure
+
+As required by Bokeh, `main.py` is the index file that points to the other features of videt.
+
 
 ## To-Do's
 
+Improve everything you want. This is
+
+### (incomplete) List of Datasets to implement
 
 Geographic Time Series
 Land-cover change	https://catalog.data.gov/dataset/historical-land-cover-change-and-land-use-conversions-global-dataset	Need to convert from map (netCDF) to simple numbers
