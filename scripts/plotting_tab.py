@@ -6,6 +6,7 @@ from bokeh.plotting import figure
 from bokeh.models import Panel, HoverTool, Legend
 from bokeh.models.widgets import (CheckboxGroup, Div, Button)
 from bokeh.layouts import column, row, WidgetBox
+from bokeh.palettes import d3
 
 
 def videt_tab(dataset_collection, infos_tab):
@@ -29,11 +30,25 @@ def videt_tab(dataset_collection, infos_tab):
 
         return p
 
+    def get_iter_of_colors(collection_of_datasets, checkboxes):
+        ##This function is counting the number of active (sub-) datasets and then assign a color list of the
+        # correct size
+        dataset_counter = 0
+        for i, this_dataset in enumerate(collection_of_datasets.datasets):
+            if i in checkboxes.active:
+                for y_label in this_dataset.y_labels:
+                    dataset_counter += 1
+        if dataset_counter == 0:
+            colors = []
+        elif dataset_counter == 1:
+            colors = ["black"]
+        else:
+            colors = d3['Category20'][dataset_counter]
+        return iter(colors)
 
     def update_plot_after_checkbox(attr, old, new):
         #This function updates the plot according to the active checkboxes; therefore, here, all the relevant info is
         #read from the dataset object
-        colors = ["black", "red", "green", "blue", "yellow", "pink"] #TODO automatically generate a fitting number of colors
 
         #re-initialize the plot by removing all renderers
         tab.child.children[1] = figure(plot_width=600, plot_height=600, title="", x_axis_type="datetime")
@@ -45,23 +60,27 @@ def videt_tab(dataset_collection, infos_tab):
         #Initialize p_dict to store all necessary information for the legend
         p_dict = dict()
         #Initialize some strings to collect citation information of shown datasets
-        citation_header = "<p>This is videt (VIsualizing Dataset of Ecological Trends), which aims at supporting you by \
-       visualizing a variety of eco-related datasets in one place. This was created by Hacking Ecology. We are a \
-       open-source and open-data citizen science data science collective and we want to find out how to avert the sixth \
-       mass extinction by looking at datasets that are out there.</p>\n\rCitation for chosen datasets:\n\r"
+        citation_header = "<p>This is videt (VIsualizing Dataset of Ecological Trends), which aims at supporting you " \
+                          "by visualizing a variety of eco-related datasets in one place. This was created by Hacking " \
+                          "Ecology. We are a open-source and open-data citizen science data science collective and we " \
+                          "want to find out how to avert the sixth mass extinction by looking at datasets that are out " \
+                          "there.</p>\n\rCitation for chosen datasets:\n\r"
         citation_lines = ""
 
+        ##Counting the number of active (sub-) datasets and then assign a color list of the correct size
+        colors = get_iter_of_colors(dataset_collection, carrier_selection)
+
         for i, this_dataset in enumerate(dataset_collection.datasets):
-            ##go through the carrier selection and plot the activated datasets
+            ##Goes through the carrier selection chechboxes and plot the activated datasets
             if i in carrier_selection.active:
                 citation_lines += "<p>" + str(this_dataset) + ": " + this_dataset.get_citation() + " </p>"
 
                 if not this_dataset.is_loaded:
                     this_dataset.load_data()
 
-                for y_col, y_label, c in zip(this_dataset.y_columns, this_dataset.y_labels, colors):
+                for y_col, y_label in zip(this_dataset.y_columns, this_dataset.y_labels):
                     p_dict[y_label] = \
-                        plot_object.line(x='x', y=y_col, source=this_dataset.data, color=c, line_width=2)
+                        plot_object.line(x='x', y=y_col, source=this_dataset.data, color=next(colors), line_width=2)
                     #plot_object.add_tools(HoverTool(
                     #    renderers=[p_dict[y_label]],
                     #    tooltips=[('datetime', '@index{%Y-%m-%d %H:%M:%S}'), (y_label, f'@{y_label}')],
@@ -74,7 +93,7 @@ def videt_tab(dataset_collection, infos_tab):
         else:
             citation_lines = ""
 
-        #infos_tab.child.children[0] = Div(text=citation_lines)
+        infos_tab.child.children[0] = Div(text=citation_lines)
 
         ##TODO make the Legend work!
         #legend = Legend(items=[(x, [p_dict[x]]) for x in p_dict])
