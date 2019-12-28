@@ -24,7 +24,7 @@ class timeseries_dataset(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def load_data(self): #This function should load a ColumnDataSource into self.data and set self.is_loaded to true
+    def load_data(self): #This function needs to load a ColumnDataSource into self.data and set self.is_loaded to true
         pass
 
     def __str__(self):
@@ -73,30 +73,6 @@ class dwd_dataset(timeseries_dataset):
 
     def get_citation(self):
         return("Deutscher Wetterdienst")
-
-
-class red_list_dataset(timeseries_dataset):
-    ##Needs a token from http://apiv3.iucnredlist.org/api/v3/token
-    def __init__(self):
-        None
-        self.token = None
-        super().__init__("IUCN Red List", "Extinct animals", "", True, False)
-
-    def set_token(self, token_string):
-        #TODO use the uncommented token only for testing; apply for a token via
-        self.token = token_string #62f786e49c4ab2f4542838765486013b9469a46ed265f2dfd86ba92a1df61c34
-
-    def load_data(self):
-        #TODO
-        labels = None
-        values = None
-
-        self.data = ColumnDataSource({'x': labels, 'y': values})
-                    ##TODO can a ColumnDataSource handle even more informative data?
-        self.is_loaded = True
-
-    def get_citation(self):
-        return("IUCN 2019. IUCN Red List of Threatened Species. Version 2019-3 <www.iucnredlist.org>")
 
 
 class global_carbon_project_dataset(timeseries_dataset):

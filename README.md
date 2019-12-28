@@ -16,12 +16,17 @@ bokeh serve ./ --show
 
 ### Structure
 
-As required by Bokeh, `main.py` is the index file that points to the other features of videt.
+As required by Bokeh, `main.py` is the index file that points to the other features of videt. `scripts/plotting_tab.py`
+contains the code for the GUI and all the plotting commands, `scripts/info_tab.py` creates the second tab of videt.
+`scripts/datasets.py` contains the code that loads the datasets. If you want to add new datasets they need to inherit
+from `timeseries_dataset` and implement all the fields and functions of it; please see to the other datasets already
+implemented for reference. Currently, `config/` contains a single config file that indicates the datasets implemented
+and the arguments relevant for them.
 
 
 ## To-Do's
 
-Improve everything you want. This is
+Improve everything you want. Work on the todos in the code. Implement new datasets. Thank you very much in advance.
 
 ### (incomplete) List of Datasets to implement
 
