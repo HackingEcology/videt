@@ -13,6 +13,7 @@ As there is no online version of videt yet, users need to clone the repo, `cd` i
 ```
 bokeh serve ./ --show
 ```
+s
 
 ### Structure
 
