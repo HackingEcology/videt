@@ -19,6 +19,7 @@ def info_tab(citation_text):
                       width=200, height=100)
     else:
         variable_info = Div(text = "")
+
     layout = column(static_info, variable_info)
 
     tab = Panel(child=layout, title='Information')
