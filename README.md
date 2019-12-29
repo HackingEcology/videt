@@ -30,8 +30,10 @@ Improve everything you want. Work on the todos in the code. Implement new datase
 
 ### (incomplete) List of Datasets to implement
 
-Geographic Time Series
-Land-cover change	https://catalog.data.gov/dataset/historical-land-cover-change-and-land-use-conversions-global-dataset	Need to convert from map (netCDF) to simple numbers
+-- Geographic Time Series --
+
+Land-cover change	https://catalog.data.gov/dataset/historical-land-cover-change-and-land-use-conversions-global-dataset
+(Need to convert from map (netCDF) to simple numbers)
 
 Sea Ice thickness	https://climatedataguide.ucar.edu/climate-data/sea-ice-thickness-data-sets-overview-comparison-table
 
@@ -39,32 +41,53 @@ Soil moisture	https://climatedataguide.ucar.edu/climate-data/soil-moisture-data-
 
 Ocean Acidification	http://portal.goa-on.org/
 
-Anthropogenic stuff
+-- Anthropogenic stuff --
+
 Heat flux	https://springernature.figshare.com/collections/A_new_global_gridded_anthropogenic_heat_flux_dataset_with_high_spatial_resolution_and_long-term_series/4182824
+
 CO2 emissions 	https://www.icos-cp.eu/GCP/2018
+
 Anthropogenic Biomes	https://sedac.ciesin.columbia.edu/data/collection/anthromes/sets/browse
+
 Population	http://www.sustainableworld.com/data/pop_main.html
+
 SDG progress	https://sdg-tracker.org/
+
 Economy -- IMF	https://www.imf.org/en/Data
+
 Economy -- World Bank	https://databank.worldbank.org/databases.aspx
+
 Urbanization, fertilizer use, times of agriculture...
 
-Biological time series
-BioTIME	http://biotime.st-andrews.ac.uk/downloadArea.php	Many separate studies for different regions; no API, AFAIK
-IUCN Red List of endangered species	--	API with token; 
+
+-- Biological time series --
+
+BioTIME	http://biotime.st-andrews.ac.uk/downloadArea.php	(Many separate studies for different regions; no API, AFAIK)
+
+IUCN Red List of endangered species https://apiv3.iucnredlist.org/api/v3/docs (API needs token)
+
 Vegetation index (MODIS NDVI)	https://icdc.cen.uni-hamburg.de/1/daten/land/modis-vegetationindex.html	access is restricted
+
 Global vegetation	https://lpdaac.usgs.gov/products/vcf5kyrv001/
+
 Ocean acidification biological responses	http://oa-icc.ipsl.fr/
 
 
-Weather/Climate time series
-DWD	...	Necessary to figure out which of the folders 
+-- Weather/Climate time series --
+
+DWD	http://opendata.dwd.de/	(Temp. access already implemented, but chosse the right file(s)!)
+
 Cloud Data	https://climserv.ipsl.polytechnique.fr/gewexca/index-2.html
+
 Temperature	https://climatedataguide.ucar.edu/climate-data/global-temperature-data-sets-overview-comparison-table
+
 Different athmospheric reanalyses	https://climatedataguide.ucar.edu/climate-data/atmospheric-reanalysis-overview-comparison-tables
 
 
-Others / Collections
+-- Others / Collections --
+
 https://lpdaac.usgs.gov/product_search/
+
 UN data	https://data.un.org/
+
 https://datacatalog.worldbank.org/harvest-source/indicators-api
