@@ -32,8 +32,11 @@ Improve everything you want. Work on the todos in the code. Implement new datase
 
 Geographic Time Series
 Land-cover change	https://catalog.data.gov/dataset/historical-land-cover-change-and-land-use-conversions-global-dataset	Need to convert from map (netCDF) to simple numbers
+
 Sea Ice thickness	https://climatedataguide.ucar.edu/climate-data/sea-ice-thickness-data-sets-overview-comparison-table
+
 Soil moisture	https://climatedataguide.ucar.edu/climate-data/soil-moisture-data-sets-overview-comparison-tables
+
 Ocean Acidification	http://portal.goa-on.org/
 
 Anthropogenic stuff
