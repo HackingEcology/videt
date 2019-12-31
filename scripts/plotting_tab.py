@@ -9,7 +9,7 @@ from bokeh.layouts import column, row, WidgetBox
 from bokeh.palettes import d3
 
 
-def videt_tab(dataset_collection, infos_tab):
+def videt_tab(dataset_collection, infos_tab, citation_header):
 
     def style(p):
         ## Defines a plotting style
@@ -33,6 +33,7 @@ def videt_tab(dataset_collection, infos_tab):
     def get_iter_of_colors(collection_of_datasets, checkboxes):
         ##This function is counting the number of active (sub-) datasets and then assign a color list of the
         # correct size
+        #TODO make this "stable" in any way, so that colors remain the same even if things are added or removed;
         dataset_counter = 0
         for i, this_dataset in enumerate(collection_of_datasets.datasets):
             if i in checkboxes.active:
@@ -51,7 +52,7 @@ def videt_tab(dataset_collection, infos_tab):
         #read from the dataset object
 
         #re-initialize the plot by removing all renderers
-        tab.child.children[1] = figure(plot_width=600, plot_height=600, title="", x_axis_type="datetime")
+        tab.child.children[1] = figure(title="", x_axis_type="datetime")
         plot_object = tab.child.children[1]
         plot_object = style(plot_object)
         plot_object.xaxis.axis_label = "Time"
@@ -59,13 +60,6 @@ def videt_tab(dataset_collection, infos_tab):
 
         #Initialize p_dict to store all necessary information for the legend
         p_dict = dict()
-        #Initialize some strings to collect citation information of shown datasets
-        citation_header = "<p>This is videt (VIsualizing Dataset of Ecological Trends), which aims at supporting you " \
-                          "by visualizing a variety of eco-related datasets in one place. This was created by Hacking " \
-                          "Ecology. We are a open-source and open-data citizen science data science collective and we " \
-                          "want to find out how to avert the sixth mass extinction by looking at datasets that are out " \
-                          "there.</p>\n\rCitation for chosen datasets:\n\r"
-        citation_lines = ""
 
         ##Counting the number of active (sub-) datasets and then assign a color list of the correct size
         colors = get_iter_of_colors(dataset_collection, carrier_selection)
@@ -73,8 +67,6 @@ def videt_tab(dataset_collection, infos_tab):
         for i, this_dataset in enumerate(dataset_collection.datasets):
             ##Goes through the carrier selection chechboxes and plot the activated datasets
             if i in carrier_selection.active:
-                citation_lines += "<p>" + str(this_dataset) + ": " + this_dataset.get_citation() + " </p>"
-
                 if not this_dataset.is_loaded:
                     this_dataset.load_data()
 
@@ -87,25 +79,46 @@ def videt_tab(dataset_collection, infos_tab):
                     #    formatters={'index': 'datetime'}
                     #))
 
+        for x in p_dict:
+            print(x)
+            print(p_dict[x])
+            print()
+
+        legend = Legend(items=[(x, [p_dict[x]]) for x in p_dict])
+        plot_object.add_layout(legend)
+
+        # pass on citation information to the information tab
+        update_citation()
+
+    def update_citation():
+        citation_lines = ""
+
+        for i, this_dataset in enumerate(dataset_collection.datasets):
+            ##Goes through the carrier selection chechboxes and gets the relevant citation lines
+            if i in carrier_selection.active:
+                citation_lines += "<p>" + str(this_dataset) + ": " + this_dataset.get_citation() + " </p>"
+
         # pass on citation information to the information tab
         if citation_lines != "":
             citation_lines = citation_header + citation_lines
         else:
-            citation_lines = ""
+            citation_lines = citation_header
 
-        infos_tab.child.children[0] = Div(text=citation_lines)
-
-        ##TODO make the Legend work!
-        #legend = Legend(items=[(x, [p_dict[x]]) for x in p_dict])
-        #plot_object.add_layout(legend, 'right')
-
-
+        infos_tab.child.children[0] = Div(text=citation_lines, sizing_mode="stretch_width")
 
 
     ##Initialize empty plot
-    p = figure(plot_width=600, plot_height=600, title="", x_axis_type="datetime")
+    #p = figure(plot_width=600, plot_height=600, title="", x_axis_type="datetime")
+    p = figure(title="", x_axis_type="datetime")
+    p = style(p)
+    p.xaxis.axis_label = "Time"
+    p.yaxis.axis_label = "Value"
+
     ##TODO add datime x axis by default
     ##TODO do something so that the "Plot has no renderers" warning doesnt show up -- maybe create a fancy default plot
+
+    #TODO think about how to make datasets chooseable better. E.G. only make those datasets chooseable at first that
+    # do not need geolocation; and only make those chooseable after the user has chosen a geolocation in the geo tab.
 
     #Add a checkbox for each dataset in the dataset collection
     carrier_selection = CheckboxGroup(labels = [str(dataset) for dataset in dataset_collection.datasets],
@@ -114,15 +127,12 @@ def videt_tab(dataset_collection, infos_tab):
     carrier_selection.on_change('active', update_plot_after_checkbox)
 
     # Put all control elements in a single layout
-    p = style(p)
-    p.xaxis.axis_label = "Time"
-    p.yaxis.axis_label = "Value"
     dataset_choice_checkboxes = WidgetBox(carrier_selection)
     ##TODO add the possibility to download the shown data on click
     placeholder_button = Button(label="Placeholder", button_type="success")
     layout = row(column(dataset_choice_checkboxes, placeholder_button), p)
 
     # Create a tab with the layout
-    tab = Panel(child=layout, title = 'Videt')
+    tab = Panel(child=layout, title = 'Visualize')
 
     return tab
