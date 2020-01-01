@@ -24,7 +24,7 @@ Citation lines for chosen datasets will show up here after chosing datasets:</p>
 
 
 # Create tabs and put them in the current document for display
-tab_earth = earth_tab()
+tab_earth = earth_tab(videt)
 tab_info = info_tab(info_default_string)
 tab_data = videt_tab(videt, tab_info, info_default_string)
 tabs = Tabs(tabs = [tab_info, tab_earth, tab_data])

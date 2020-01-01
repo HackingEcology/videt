@@ -8,7 +8,6 @@ from bokeh.models.widgets import (CheckboxGroup, Div, Button)
 from bokeh.layouts import column, row, WidgetBox
 from bokeh.palettes import d3
 
-
 def videt_tab(dataset_collection, infos_tab, citation_header):
 
     def style(p):
@@ -106,6 +105,9 @@ def videt_tab(dataset_collection, infos_tab, citation_header):
 
         infos_tab.child.children[0] = Div(text=citation_lines, sizing_mode="stretch_width")
 
+    def gather_and_save_data_on_click():
+        None
+        #TODO write this
 
     ##Initialize empty plot
     #p = figure(plot_width=600, plot_height=600, title="", x_axis_type="datetime")
@@ -129,8 +131,9 @@ def videt_tab(dataset_collection, infos_tab, citation_header):
     # Put all control elements in a single layout
     dataset_choice_checkboxes = WidgetBox(carrier_selection)
     ##TODO add the possibility to download the shown data on click
-    placeholder_button = Button(label="Placeholder", button_type="success")
-    layout = row(column(dataset_choice_checkboxes, placeholder_button), p)
+    downloader_button = Button(label="Download Data as CSV", button_type="success")
+    downloader_button.on_click(gather_and_save_data_on_click)
+    layout = row(column(dataset_choice_checkboxes, downloader_button), p)
 
     # Create a tab with the layout
     tab = Panel(child=layout, title = 'Visualize')

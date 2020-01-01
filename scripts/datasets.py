@@ -103,6 +103,11 @@ class data_collection(object):
     def __init__(self):
         self.datasets = []
 
+        #Set up variables in order to be able to pipe information between tabs
+        self.latpos = None
+        self.lonpos = None
+        self.perimeter = None
+
     def add_dataset(self, new_dataset):
         #TODO this might be necessary if a user is adding its own dataset. Make this possible!
         None

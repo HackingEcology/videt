@@ -9,6 +9,7 @@ def info_tab(citation_text):
 
     static_info = Div(text=citation_text, sizing_mode="stretch_width")
     variable_info = Div(text="", sizing_mode="fixed")
+
     #This is a hack, but the communication between tabs doesn't work if I un-hack it.
     #TODO un-hack it
     layout = row(static_info, variable_info)
